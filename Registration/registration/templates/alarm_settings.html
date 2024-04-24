@@ -1,0 +1,26 @@
+
+{% block content %}
+<h1>Alarm Settings</h1>
+
+<!-- Display existing alarm settings -->
+<ul>
+    {% for setting in settings %}
+        <li>
+            <p>Type: {{ setting.get_alarm_type_display }}</p>
+            <p>Notification Method: {{ setting.get_notification_method_display }}</p>
+            <p>Notification Contact: {{ setting.notification_contact }}</p>
+            <p>Sensitivity: {{ setting.get_sensitivity_display }}</p>
+            <p>Duration: {{ setting.duration }} seconds</p>
+            <p>Status: {% if setting.active %} Active {% else %} Inactive {% endif %}</p>
+        </li>
+    {% endfor %}
+</ul>
+<!-- Form to add or update alarm settings -->
+<h2>Set Alarm Preferences</h2>
+<form method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-primary">Save</button>
+    {% endblock %}
+</form>
+
